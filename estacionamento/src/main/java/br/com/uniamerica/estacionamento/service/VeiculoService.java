@@ -14,7 +14,6 @@ public class VeiculoService {
     public void validaVeiculo (Veículo veiculo)
     {
         Assert.isTrue(veiculo.getPlaca().length() > 15, "Placa inválida.");
-        Assert.isTrue(veiculo.getPlaca().equals(""), "Placa não pode ser nula");
 
         this.veiculoRepository.save(veiculo);
     }

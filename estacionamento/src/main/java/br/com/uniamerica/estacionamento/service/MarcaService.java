@@ -17,10 +17,7 @@ public class MarcaService {
     @Transactional(rollbackFor = Exception.class)
     public void validaMarca (Marca marca)
     {
-        Assert.isTrue(!marca.getNome().equals(""), "Marca não pode ser nulo");
         Assert.isTrue(marca.getNome().length() <= 50, "Marca maior que 50 caracteres");
-
-
         this.marcaRepository.save(marca);
     }
 
