@@ -8,7 +8,7 @@ import lombok.Setter;
 @Table (name = "veiculos", schema = "public")
 public class Veículo extends AbstractEntity {
     @Getter @Setter
-    @Column (name = "placa", length = 8, nullable = false, unique = true)
+    @Column (name = "placa", length = 10, nullable = false, unique = true)
     private String placa;
     @Getter @Setter
     @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -19,11 +19,11 @@ public class Veículo extends AbstractEntity {
 
     @Enumerated(EnumType.STRING)
     @Getter @Setter
-    @Column(name = "cor", length = 20, nullable = false)
+    @Column(name = "cor", nullable = false)
     private Cor cor;
 
     @Enumerated(EnumType.STRING)
     @Getter @Setter
-    @Column (name = "tipo" , length = 20, nullable = false)
+    @Column (name = "tipo" , nullable = false)
     private Tipo tipo;
 }

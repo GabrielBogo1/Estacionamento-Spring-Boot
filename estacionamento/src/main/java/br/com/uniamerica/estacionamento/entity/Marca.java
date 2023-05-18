@@ -11,6 +11,6 @@ import org.hibernate.annotations.Type;
 @Table (name = "marcas", schema = "public")
 public class Marca extends AbstractEntity {
     @Getter @Setter
-    @Column (name = "nome_marca" , length = 50, nullable = false)
+    @Column (name = "nome_marca" , unique = true, length = 50, nullable = false)
     private String nome;
 }

@@ -4,6 +4,7 @@ package br.com.uniamerica.estacionamento.controller;
 import br.com.uniamerica.estacionamento.entity.Condutor;
 import br.com.uniamerica.estacionamento.repository.CondutorRepository;
 import br.com.uniamerica.estacionamento.service.CondutorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -37,24 +38,26 @@ public class CondutorController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar (@RequestBody final Condutor condutor) {
+    public ResponseEntity<?> cadastrar (@Valid @RequestBody final Condutor condutor) {
         try {
-           condutorServ.validaCondutor(condutor);
+            condutorServ.validaCondutor(condutor);
             return ResponseEntity.ok("Condutor cadastrado com sucesso");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
     }
 
+
     @PutMapping
-    public ResponseEntity<?> editar(@RequestParam("id") final Long id, @RequestBody final Condutor condutor) {
+    public ResponseEntity<?> editar(@Valid @RequestParam("id") final Long id, @RequestBody final Condutor condutor) {
         try {
-            condutorServ.validaCondutor(condutor);
+            condutorServ.atualizaCondutor(condutor);
             final Condutor condutor1 = this.condutorRepository.findById(id).orElse(null);
             if (condutor1 == null || !condutor1.getId().equals(condutor.getId())) {
                 throw new RuntimeException("Nao foi possivel identificar o registro informado");
             }
             this.condutorRepository.save(condutor);
+
             return ResponseEntity.ok("Condutor atualizado com Sucesso");
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.internalServerError()

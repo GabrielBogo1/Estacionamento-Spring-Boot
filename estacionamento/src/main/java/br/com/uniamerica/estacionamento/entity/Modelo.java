@@ -8,10 +8,11 @@ import lombok.Setter;
 @Table (name = "modelo", schema = "public")
 public class Modelo extends  AbstractEntity {
     @Getter @Setter
-    @Column (name = "nome", length = 50, nullable = false)
+    @Column (name = "nome", unique = true, length = 50, nullable = false)
     private String nome;
     @Getter @Setter
     @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column (name = "marca", nullable = false)
     private Marca marca;
 
 }

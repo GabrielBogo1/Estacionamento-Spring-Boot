@@ -22,18 +22,25 @@ public class CondutorService {
     {
         Assert.isTrue(condutor.getNome().length() <= 50,"Nome maior do que 50 caracteres");
 
-        Assert.isTrue(!condutor.getNome().equals(""), "Nome não pode ser nulo.");
+          Assert.isTrue(condutor.getId().equals(condutor.getId()),"Já existe um condutor com esse identificador");
+
+
         Assert.isTrue(!condutor.getCpf().equals(""), "CPF não pode ser nulo.");
-
-        Assert.isTrue(!condutor.getTelefone().equals(""), "Telefone não pode ser nulo.");
-        Assert.isTrue(condutor.getTelefone().length() <  17, "Tamanho de telefone inválido.");
+        Assert.isTrue(condutor.getCpf().equals(condutor.getCpf()), "Já existe um condutor com esse CPF");
 
 
-        if (this.validarCPF.isCPF(condutor.getCpf()) == false) {
-            throw new RuntimeException("Cpf inválido");
-        }
+        condutor.setAtivo(true);
 
         this.condutorRepository.save(condutor);
     }
+
+    public void atualizaCondutor (Condutor condutor){
+        final Condutor condutorBancoDeDados = this.condutorRepository.findById(condutor.getId()).orElse(null);
+        condutor.setCadastro(condutorBancoDeDados.getCadastro());
+
+        this.condutorRepository.save(condutor);
+    }
+
+
 
 }

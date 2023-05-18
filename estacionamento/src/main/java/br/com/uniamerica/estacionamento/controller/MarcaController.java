@@ -2,7 +2,6 @@ package br.com.uniamerica.estacionamento.controller;
 
 import br.com.uniamerica.estacionamento.entity.Marca;
 import br.com.uniamerica.estacionamento.repository.MarcaRepository;
-import br.com.uniamerica.estacionamento.repository.ModeloRepository;
 import br.com.uniamerica.estacionamento.service.MarcaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -13,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(value = "/api/marca")
-public class MarcaController {
+public class
+MarcaController {
 
     @Autowired // Permite a utilização dos metodos de determinada classe, sem precisar instanciala, fazendo a injeçaõ de dependência
     private MarcaRepository marcaRepository;
@@ -42,17 +42,17 @@ public class MarcaController {
             try {
                 marcaService.validaMarca(marca);
                 return ResponseEntity.ok("Registro cadastrado com sucesso");
-            } catch (DataIntegrityViolationException e) {
-                return ResponseEntity.internalServerError().body("Error: " + e.getCause().getCause().getMessage());
+            } catch (Exception e) {
+                return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
             }
         }
 
         @PutMapping
         public ResponseEntity<?> editar(@RequestParam("id") final Long id, @RequestBody final Marca marca) {
             try {
+                marcaService.validaMarca(marca);
 
                 final Marca marca1 = this.marcaRepository.findById(id).orElse(null);
-
                 if (marca1 == null || !marca1.getId().equals(marca.getId())) {
                     throw new RuntimeException("Nao foi possivel indentificar o registro informado");
                 }
