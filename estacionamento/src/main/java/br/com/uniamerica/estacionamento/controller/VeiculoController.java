@@ -5,6 +5,7 @@ import br.com.uniamerica.estacionamento.entity.Veículo;
 import br.com.uniamerica.estacionamento.repository.MarcaRepository;
 import br.com.uniamerica.estacionamento.repository.VeiculoRepository;
 import br.com.uniamerica.estacionamento.service.VeiculoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class VeiculoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar (@RequestBody final Veículo veiculo) {
+    public ResponseEntity<?> cadastrar (@Valid @RequestBody final Veículo veiculo) {
         try {
             veiculoService.validaVeiculo(veiculo);
             return ResponseEntity.ok("Veículo cadastrado com sucesso");
@@ -47,7 +48,7 @@ public class VeiculoController {
     }
 
     @PutMapping
-    public ResponseEntity<?> editar(@RequestParam("id") final Long id, @RequestBody final Veículo veiculo) {
+    public ResponseEntity<?> editar(@Valid @RequestParam("id") final Long id, @RequestBody final Veículo veiculo) {
         try {
             veiculoService.validaVeiculo(veiculo);
 

@@ -5,6 +5,7 @@ import br.com.uniamerica.estacionamento.entity.Marca;
 import br.com.uniamerica.estacionamento.entity.Modelo;
 import br.com.uniamerica.estacionamento.repository.ModeloRepository;
 import br.com.uniamerica.estacionamento.service.ModeloService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class ModeloController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar (@RequestBody final Modelo modelo) {
+    public ResponseEntity<?> cadastrar (@Valid @RequestBody final Modelo modelo) {
         try {
             modeloService.validaModelo(modelo);
             return ResponseEntity.ok("Modelo cadastrado com sucesso");
@@ -48,7 +49,7 @@ public class ModeloController {
     }
 
     @PutMapping
-    public ResponseEntity<?> editar(@RequestParam("id") final Long id, @RequestBody final Modelo modelo) {
+    public ResponseEntity<?> editar(@Valid @RequestParam("id") final Long id, @RequestBody final Modelo modelo) {
         try {
             modeloService.validaModelo(modelo);
 

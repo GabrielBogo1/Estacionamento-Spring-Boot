@@ -3,6 +3,7 @@ package br.com.uniamerica.estacionamento.controller;
 import br.com.uniamerica.estacionamento.entity.Marca;
 import br.com.uniamerica.estacionamento.repository.MarcaRepository;
 import br.com.uniamerica.estacionamento.service.MarcaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ MarcaController {
         }
 
         @PostMapping
-        public ResponseEntity<?> cadastrar (@RequestBody final Marca marca) {
+        public ResponseEntity<?> cadastrar (@Valid @RequestBody final Marca marca) {
             try {
                 marcaService.validaMarca(marca);
                 return ResponseEntity.ok("Registro cadastrado com sucesso");
@@ -48,7 +49,7 @@ MarcaController {
         }
 
         @PutMapping
-        public ResponseEntity<?> editar(@RequestParam("id") final Long id, @RequestBody final Marca marca) {
+        public ResponseEntity<?> editar(@Valid @RequestParam("id") final Long id, @RequestBody final Marca marca) {
             try {
                 marcaService.validaMarca(marca);
 
