@@ -42,8 +42,8 @@ public class VeiculoController {
         try {
             veiculoService.validaVeiculo(veiculo);
             return ResponseEntity.ok("Veículo cadastrado com sucesso");
-        } catch (DataIntegrityViolationException e) {
-            return ResponseEntity.internalServerError().body("Error: " + e.getCause().getCause().getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
     }
 
@@ -51,13 +51,12 @@ public class VeiculoController {
     public ResponseEntity<?> editar(@Valid @RequestParam("id") final Long id, @RequestBody final Veículo veiculo) {
         try {
             veiculoService.validaVeiculo(veiculo);
-
             final Veículo veiculo1 = this.veiculoRep.findById(id).orElse(null);
             if (veiculo1 == null || !veiculo1.getId().equals(veiculo.getId())) {
                 throw new RuntimeException("Nao foi possivel identificar o registro informado");
             }
             this.veiculoRep.save(veiculo);
-            return ResponseEntity.ok("Veículo Cadastrado com Sucesso");
+            return ResponseEntity.ok("Veículo atualizado com Sucesso");
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.internalServerError()
                     .body("Error: " + e.getCause().getCause().getMessage());

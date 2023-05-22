@@ -18,7 +18,7 @@ public class ModeloService {
     @Transactional (rollbackFor = Exception.class)
     public void validaModelo (final Modelo modelo){
 
-        Assert.isTrue(modelo.getNome().equals(""), "Modelo não pode ser nulo");
+        Assert.isTrue(!modelo.getNome().equals(""), "Modelo não pode ser nulo");
         Assert.isTrue(modelo.getNome().length() < 50, "Modelo não pode passar de 50 caracteres");
 
         this.modeloRepository.save(modelo);

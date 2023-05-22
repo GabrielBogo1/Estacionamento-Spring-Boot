@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="01d102ec-5be1-45ba-9851-c27b0a782759" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/MarcaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/MarcaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/ModeloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/ModeloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/VeiculoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/VeiculoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/entity/Veículo.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/entity/Veículo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/service/ModeloService.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/service/ModeloService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/service/VeiculoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/service/VeiculoService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +38,9 @@
         <option name="useMavenConfig" value="true" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2Oz0dJgbGPMqOJJWa4FEQPCGbP6" />
   <component name="ProjectViewState">
