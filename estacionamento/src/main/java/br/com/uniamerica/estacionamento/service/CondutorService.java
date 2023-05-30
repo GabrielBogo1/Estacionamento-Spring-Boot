@@ -17,30 +17,33 @@ public class CondutorService {
 
     @Autowired
     private ValidaCpf validarCPF;
+
     @Transactional(rollbackFor = Exception.class)
     public void validaCondutor (Condutor condutor)
     {
         Assert.isTrue(condutor.getNome().length() <= 50,"Nome maior do que 50 caracteres");
 
-          Assert.isTrue(condutor.getId().equals(condutor.getId()),"Já existe um condutor com esse identificador");
-
-
         Assert.isTrue(!condutor.getCpf().equals(""), "CPF não pode ser nulo.");
-        Assert.isTrue(condutor.getCpf().equals(condutor.getCpf()), "Já existe um condutor com esse CPF");
 
+        Condutor condutorExistente = condutorRepository.findByCpf(condutor.getCpf());
 
-        condutor.setAtivo(true);
+        Assert.isTrue(condutorExistente == null || condutorExistente.equals(condutor.getCpf()), "CPF Já existente");
 
         this.condutorRepository.save(condutor);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void atualizaCondutor (Condutor condutor){
+
+        Assert.isTrue(condutor.getNome().length() <= 50,"Nome maior do que 50 caracteres");
+//        Assert.isTrue(!condutor.getNome().equals(""), "Nome não pode ser nulo");
+
+        Assert.isTrue(!condutor.getCpf().equals(""), "CPF não pode ser nulo.");
+        Assert.isTrue(condutor.getCpf().equals(condutor.getCpf()), "Já existe um condutor com esse CPF");
+
         final Condutor condutorBancoDeDados = this.condutorRepository.findById(condutor.getId()).orElse(null);
         condutor.setCadastro(condutorBancoDeDados.getCadastro());
 
         this.condutorRepository.save(condutor);
     }
-
-
-
 }

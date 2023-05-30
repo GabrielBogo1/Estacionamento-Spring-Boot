@@ -42,14 +42,14 @@ MarcaController {
         public ResponseEntity<?> cadastrar (@Valid @RequestBody final Marca marca) {
             try {
                 marcaService.validaMarca(marca);
-                return ResponseEntity.ok("Registro cadastrado com sucesso");
+                return ResponseEntity.ok("Marca cadastrada com sucesso");
             } catch (Exception e) {
                 return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
             }
         }
 
         @PutMapping
-        public ResponseEntity<?> editar(@Valid @RequestParam("id") final Long id, @RequestBody final Marca marca) {
+        public ResponseEntity<?> editar(@RequestParam("id") final Long id, @Valid @RequestBody final Marca marca) {
             try {
                 marcaService.validaMarca(marca);
 
@@ -58,10 +58,10 @@ MarcaController {
                     throw new RuntimeException("Nao foi possivel indentificar o registro informado");
                 }
                 this.marcaRepository.save(marca);
-                return ResponseEntity.ok("Registro Cadastrado com Sucesso");
+                return ResponseEntity.ok("Marca atualiza com sucesso");
             } catch (DataIntegrityViolationException e) {
                 return ResponseEntity.internalServerError()
-                        .body("Error: " + e.getCause().getCause().getMessage());
+                        .body("Error: " + e.getMessage());
             } catch (RuntimeException e) {
                 return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
             }

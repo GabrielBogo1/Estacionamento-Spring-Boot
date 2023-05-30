@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -38,7 +39,7 @@ public class CondutorController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar (@Valid @RequestBody final Condutor condutor) {
+    public ResponseEntity<?> cadastrar (@Valid gay @RequestBody final Condutor condutor) {
         try {
             condutorServ.validaCondutor(condutor);
             return ResponseEntity.ok("Condutor cadastrado com sucesso");
@@ -49,15 +50,13 @@ public class CondutorController {
 
 
     @PutMapping
-    public ResponseEntity<?> editar(@Valid @RequestParam("id") final Long id, @RequestBody final Condutor condutor) {
+    public ResponseEntity<?> editar(@RequestParam("id") final Long id, @Valid @RequestBody final Condutor condutor) {
         try {
             condutorServ.atualizaCondutor(condutor);
             final Condutor condutor1 = this.condutorRepository.findById(id).orElse(null);
             if (condutor1 == null || !condutor1.getId().equals(condutor.getId())) {
                 throw new RuntimeException("Nao foi possivel identificar o registro informado");
             }
-            this.condutorRepository.save(condutor);
-
             return ResponseEntity.ok("Condutor atualizado com Sucesso");
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.internalServerError()

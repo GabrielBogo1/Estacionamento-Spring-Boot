@@ -36,7 +36,7 @@ public class MovimentacaoController {
     public ResponseEntity<?> cadastrar (@RequestBody final Movimentacao movimentacao) {
         try {
             this.movimentacaoRep.save(movimentacao);
-            return ResponseEntity.ok("Registro cadastrado com sucesso");
+            return ResponseEntity.ok("Movimentação cadastrada com sucesso");
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.internalServerError().body("Error: " + e.getCause().getCause().getMessage());
         }
@@ -51,7 +51,7 @@ public class MovimentacaoController {
                 throw new RuntimeException("Nao foi possivel indentificar o registro informado");
             }
             this.movimentacaoRep.save(movimentacao);
-            return ResponseEntity.ok("Registro Cadastrado com Sucesso");
+            return ResponseEntity.ok("Movimentação atualizada com Sucesso");
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.internalServerError()
                     .body("Error: " + e.getCause().getCause().getMessage());

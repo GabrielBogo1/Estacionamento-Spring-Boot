@@ -3,6 +3,7 @@ package br.com.uniamerica.estacionamento.entity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,11 +12,11 @@ import lombok.Setter;
 public class Modelo extends  AbstractEntity {
     @Getter @Setter
     @Column (name = "nome", unique = true, length = 50, nullable = false)
-    @NotNull (message = "Nome do modelo não pode ser nulo")
+    @Size(min = 1, message = "Nome do modelo não pode ser nulo")
     private String nome;
     @Getter @Setter
-    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @NotNull (message = "Marca não pode ser nulo")
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn (name = "marca")
     private Marca marca;
 
 }
