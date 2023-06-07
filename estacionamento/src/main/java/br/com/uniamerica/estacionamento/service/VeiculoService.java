@@ -23,7 +23,6 @@ public class VeiculoService {
 
         Assert.isTrue(veiculo.getAno() <= anoLimite, "Ano limite excedido");
 
-
         this.veiculoRepository.save(veiculo);
     }
 

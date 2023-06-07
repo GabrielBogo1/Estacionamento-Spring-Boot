@@ -49,7 +49,7 @@ public class ModeloController {
     }
 
     @PutMapping
-    public ResponseEntity<?> editar(@Valid @RequestParam("id") final Long id, @RequestBody final Modelo modelo) {
+    public ResponseEntity<?> editar(@RequestParam("id") final Long id, @Valid @RequestBody final Modelo modelo) {
         try {
             modeloService.validaModelo(modelo);
 

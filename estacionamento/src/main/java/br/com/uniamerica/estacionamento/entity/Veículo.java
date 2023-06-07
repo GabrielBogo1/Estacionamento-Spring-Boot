@@ -13,7 +13,7 @@ public class Veículo extends AbstractEntity {
     @Getter @Setter
     @Column (name = "placa", length = 10, nullable = false, unique = true)
     @Size (min = 1,message = "Placa não pode ser nulo")
-    @Pattern(regexp = "/^[a-zA-Z-ZÀ-ÿ\\s]/;", message = "Placa não pode conter caracteres especiais")
+    @Pattern(regexp = "^[A-Za-z0-9]+[A-Za-z0-9]*$", message = "Placa não pode conter caracteres especiais")
     private String placa;
     @Getter @Setter
     @ManyToOne (fetch = FetchType.LAZY)
@@ -26,11 +26,13 @@ public class Veículo extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @Getter @Setter
     @Column(name = "cor", nullable = false)
+    @NotNull (message = "Cor não pode ser nula")
     private Cor cor;
 
     @Enumerated(EnumType.STRING)
     @Getter @Setter
     @Column (name = "tipo" , nullable = false)
+    @NotNull (message = "Tipo não pode ser nulo")
     private Tipo tipo;
 
 

@@ -14,7 +14,7 @@ import java.time.LocalTime;
 public class Configuracao extends AbstractEntity {
     @Getter @Setter
     @Column (name = "valor_hora")
-    private BigDecimal valorHora;
+    private float valorHora;
     @Getter @Setter
     @Column (name = "valor_minuto_hora")
     private BigDecimal valorMinutoMulta;

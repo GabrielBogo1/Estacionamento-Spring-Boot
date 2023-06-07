@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(value = "/api/veiculo")
+@Validated
 public class VeiculoController {
     @Autowired
     private VeiculoRepository veiculoRep;
@@ -48,7 +50,7 @@ public class VeiculoController {
     }
 
     @PutMapping
-    public ResponseEntity<?> editar(@Valid @RequestParam("id") final Long id, @RequestBody final Veículo veiculo) {
+    public ResponseEntity<?> editar(@RequestParam("id") final Long id, @Valid @RequestBody final Veículo veiculo) {
         try {
             veiculoService.validaVeiculo(veiculo);
             final Veículo veiculo1 = this.veiculoRep.findById(id).orElse(null);

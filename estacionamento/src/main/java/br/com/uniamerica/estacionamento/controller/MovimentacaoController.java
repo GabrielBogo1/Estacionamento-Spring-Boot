@@ -4,6 +4,7 @@ import br.com.uniamerica.estacionamento.entity.Marca;
 import br.com.uniamerica.estacionamento.entity.Movimentacao;
 import br.com.uniamerica.estacionamento.repository.MarcaRepository;
 import br.com.uniamerica.estacionamento.repository.MovimentacaoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class MovimentacaoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar (@RequestBody final Movimentacao movimentacao) {
+    public ResponseEntity<?> cadastrar (@Valid @RequestBody final Movimentacao movimentacao) {
         try {
             this.movimentacaoRep.save(movimentacao);
             return ResponseEntity.ok("Movimentação cadastrada com sucesso");
@@ -43,7 +44,7 @@ public class MovimentacaoController {
     }
 
     @PutMapping
-    public ResponseEntity<?> editar(@RequestParam("id") final Long id, @RequestBody final Movimentacao movimentacao) {
+    public ResponseEntity<?> editar(@RequestParam("id") final Long id, @Valid @RequestBody final Movimentacao movimentacao) {
         try {
             final Movimentacao movimentacao1 = this.movimentacaoRep.findById(id).orElse(null);
 

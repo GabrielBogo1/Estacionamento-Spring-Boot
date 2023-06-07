@@ -39,7 +39,7 @@ public class CondutorController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar (@Valid gay @RequestBody final Condutor condutor) {
+    public ResponseEntity<?> cadastrar (@Validated @RequestBody final Condutor condutor) {
         try {
             condutorServ.validaCondutor(condutor);
             return ResponseEntity.ok("Condutor cadastrado com sucesso");
