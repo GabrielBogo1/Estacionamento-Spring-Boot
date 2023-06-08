@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping(value = "/api/condutor")
 public class CondutorController {
@@ -67,9 +69,17 @@ public class CondutorController {
     }
     @DeleteMapping ("delete/{id}")
 
-    public void deletarCondutor (@PathVariable Long id)
-    {
-        condutorRepository.deleteById(id);
+    public void deletaCondutor(@PathVariable Long id) {
+        Optional<Condutor> condutorOptional = condutorRepository.findById(id);
+        if (condutorOptional.isPresent()) {
+            Condutor condutor = condutorOptional.get();
+            if (!condutor.isAtivo()) { // Se ativo for false, deleta o condutor
+                condutorRepository.delete(condutor);
+            } else { // Se ativo for true, atualiza para false e depois deleta o condutor
+                condutor.setAtivo(false);
+                condutorRepository.save(condutor);
+            }
+        }
     }
 
 }

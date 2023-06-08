@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping(value = "/api/movimentacao")
 public class MovimentacaoController {
@@ -70,24 +72,19 @@ public class MovimentacaoController {
 
     @DeleteMapping("delete/{id}")
 
-    public ResponseEntity<?> deletaCondutor(@PathVariable Long id, Movimentacao movimentacao) {
-        try {
-
-            final Movimentacao movimentacao1 = this.movimentacaoRep.findById(id).orElse(null);
-
-            if (movimentacao1 == null || movimentacao1.getId() != movimentacao.getId()) {
-                throw new RuntimeException("Nao foi possivel indentificar o registro informado");
+    public void deletaMovimentacao(@PathVariable Long id) {
+        Optional<Movimentacao> movimentacaoOptional = movimentacaoRep.findById(id);
+        if (movimentacaoOptional.isPresent()) {
+            Movimentacao movimentacao = movimentacaoOptional.get();
+            if (!movimentacao.isAtivo()) {
+                movimentacaoRep.delete(movimentacao);
+            } else {
+                movimentacao.setAtivo(false);
+                movimentacaoRep.save(movimentacao);
             }
 
-            movimentacao.setAtivo(false);
-            return ResponseEntity.ok("Desativado");
-        } catch (DataIntegrityViolationException e) {
-            return ResponseEntity.internalServerError().body("Error: " + e.getCause().getCause().getMessage());
-        } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
     }
-
 }
 
 

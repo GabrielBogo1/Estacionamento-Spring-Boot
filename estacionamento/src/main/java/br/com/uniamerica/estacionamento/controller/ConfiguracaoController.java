@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping(value = "/api/configuracao")
 public class ConfiguracaoController {
@@ -68,9 +70,17 @@ public class ConfiguracaoController {
 
     @DeleteMapping ("delete/{id}")
 
-    public void deletarConfiguracao (@PathVariable Long id)
-    {
-        configRep.deleteById(id);
+    public void deletaConfiguracao(@PathVariable Long id) {
+        Optional<Configuracao> configuracaoOptional = configRep.findById(id);
+        if (configuracaoOptional.isPresent()) {
+            Configuracao configuracao = configuracaoOptional.get();
+            if (!configuracao.isAtivo()) {
+                configRep.delete(configuracao);
+            } else {
+                configuracao.setAtivo(false);
+                configRep.save(configuracao);
+            }
+        }
     }
 
 }

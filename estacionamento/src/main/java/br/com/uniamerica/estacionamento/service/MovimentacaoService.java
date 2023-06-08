@@ -31,6 +31,8 @@ public class MovimentacaoService {
     }
     public ResponseEntity<?> finalizarMovimentacao(Movimentacao movimentacao, Long id){
 
+        final Movimentacao movimentacao1 = this.movimentacaoRepository.findById(id).orElse(null);
+
         Duration duration = Duration.between(movimentacao.getEntrada(), movimentacao.getSaida());
         // A variável duration armazena os valores entre entrada e saida.
 
@@ -50,8 +52,13 @@ public class MovimentacaoService {
 
         float valorAPagar = (segundosParaHoras + minutosParaHoras + horasF) * valorTotal;
 
+        movimentacao.setAtivo(false);
+
         this.movimentacaoRepository.save(movimentacao);
 
-        return ResponseEntity.ok("Horas a pagar: "+ (segundosParaHoras + minutosParaHoras + horasF) +"\n Total a pagar: " + valorAPagar);
+        return ResponseEntity.ok("Horas a pagar: "+ (segundosParaHoras + minutosParaHoras + horasF) +"\n Total a pagar: " + valorAPagar + "\n Hora da entrada: " + movimentacao.getEntrada() + "\n Hora da saida: " + movimentacao.getSaida() +
+                "\n Placa do veiculo: " + movimentacao1.getVeiculo().getPlaca()+ "\n Modelo do veiculo: "+ movimentacao1.getVeiculo().getModelo().getNome()+
+                "\n Ano do veiculo: "+ movimentacao1.getVeiculo().getAno()+"\n Cor do veiculo: "+ movimentacao1.getVeiculo().getCor()+ "\n Tipo do veiculo: "+movimentacao1.getVeiculo().getTipo()
+                +"\n Nome do condutor: "+ movimentacao1.getCondutor().getNome());
     }
 }

@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping(value = "/api/veiculo")
 @Validated
@@ -68,10 +70,17 @@ public class VeiculoController {
     }
 
     @DeleteMapping ("delete/{id}")
-
-    public void deletarVeiculo (@PathVariable Long id)
-    {
-        veiculoRep.deleteById(id);
+    public void deletaVeiculo(@PathVariable Long id) {
+        Optional<Veículo> veiculoOptional = veiculoRep.findById(id);
+        if (veiculoOptional.isPresent()) {
+            Veículo veiculo = veiculoOptional.get();
+            if (!veiculo.isAtivo()) {
+                veiculoRep.delete(veiculo);
+            } else {
+                veiculo.setAtivo(false);
+                veiculoRep.save(veiculo);
+            }
+        }
     }
 
-}
+        }
