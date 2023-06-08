@@ -10,9 +10,7 @@ import java.time.LocalTime;
 
 @Entity
 @Table (name = "movimentacao", schema = "public")
-
-public class
-Movimentacao  extends AbstractEntity{
+public class Movimentacao  extends AbstractEntity{
     @Getter @Setter
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "veiculo", nullable = false, unique = true)

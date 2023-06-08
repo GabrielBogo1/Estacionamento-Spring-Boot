@@ -4,6 +4,7 @@ import br.com.uniamerica.estacionamento.entity.Configuracao;
 import br.com.uniamerica.estacionamento.entity.Marca;
 import br.com.uniamerica.estacionamento.repository.ConfiguracaoRepository;
 import br.com.uniamerica.estacionamento.repository.MarcaRepository;
+import br.com.uniamerica.estacionamento.service.ConfiguracaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 public class ConfiguracaoController {
     @Autowired
     private ConfiguracaoRepository configRep;
+
+    @Autowired
+    private ConfiguracaoService configuracaoService;
     @GetMapping("/{id}")
     public ResponseEntity<Configuracao> findByIDPath (@PathVariable("id") final Long id) {
         final Configuracao configuracao = this.configRep.findById(id).orElse(null);
@@ -36,6 +40,7 @@ public class ConfiguracaoController {
     public ResponseEntity<?> cadastrar (@RequestBody final Configuracao configuracao) {
         try {
             this.configRep.save(configuracao);
+            this.configuracaoService.total(configuracao);
             return ResponseEntity.ok("Registro cadastrado com sucesso");
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.internalServerError().body("Error: " + e.getCause().getCause().getMessage());
@@ -51,6 +56,7 @@ public class ConfiguracaoController {
                 throw new RuntimeException("Nao foi possivel indentificar o registro informado");
             }
             this.configRep.save(configuracao);
+            this.configuracaoService.total(configuracao);
             return ResponseEntity.ok("Registro Cadastrado com Sucesso");
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.internalServerError()

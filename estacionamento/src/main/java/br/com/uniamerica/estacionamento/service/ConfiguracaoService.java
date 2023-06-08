@@ -16,7 +16,7 @@ public class ConfiguracaoService {
     {
         Configuracao configuracao1 = configuracaoRepository.findByValorHora(configuracao.getValorHora());
 
-        configTotal = configuracao.getValorHora();
+        configTotal = configuracao1.getValorHora();
     }
 
 }
