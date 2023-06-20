@@ -6,15 +6,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 import java.time.LocalTime;
 
+
+//@AuditTable (value = "condutores_audit", schema = "audit")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 //@Audited
 @Table(name = "condutores", schema = "public")
-//@AuditTable (value = "condutores_audit", schema = "audit")
 public class Condutor extends AbstractEntity
 {
     @Getter @Setter

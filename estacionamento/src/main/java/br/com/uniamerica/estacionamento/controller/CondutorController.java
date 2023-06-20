@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,11 +24,18 @@ public class CondutorController {
     @Autowired
     private CondutorService condutorServ;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Condutor> findByIDPath (@PathVariable("id") final Long id) {
-        final Condutor condutor = this.condutorRepository.findById(id).orElse(null);
-        return ResponseEntity.ok(condutor);
-    }
+
+    @GetMapping ("/condutores")
+        public List <Condutor> fetchCondutores (){
+            return condutorRepository.findAll();
+        }
+
+
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Condutor> findByIDPath (@PathVariable("id") final Long id) {
+//        final Condutor condutor = this.condutorRepository.findById(id).orElse(null);
+//        return ResponseEntity.ok(condutor);
+//    }
 
     // http://localhost:8080/api/condutor/1
 

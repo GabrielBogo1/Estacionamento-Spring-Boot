@@ -84,3 +84,11 @@ public class VeiculoController {
     }
 
         }
+
+
+
+        //RESERVA
+//    public void deletarModelo (@PathVariable Long id)
+//    {
+//        modeloRep.deleteById(id);
+//    }
