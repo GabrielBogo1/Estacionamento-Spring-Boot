@@ -51,10 +51,10 @@ public class VeiculoController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity<?> editar(@RequestParam("id") final Long id, @Valid @RequestBody final Veículo veiculo) {
+    @PutMapping ("/{id}")
+    public ResponseEntity<?> editar(@PathVariable("id") final Long id, @Valid @RequestBody final Veículo veiculo) {
         try {
-            veiculoService.validaVeiculo(veiculo);
+            veiculoService.editarVeiculo(id, veiculo);
             final Veículo veiculo1 = this.veiculoRep.findById(id).orElse(null);
             if (veiculo1 == null || !veiculo1.getId().equals(veiculo.getId())) {
                 throw new RuntimeException("Nao foi possivel identificar o registro informado");
@@ -68,22 +68,42 @@ public class VeiculoController {
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
     }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<?> deletarVeiculo(
+//            @RequestParam("id") final Long id
+//    ){
+//        try {
+//            this.veiculoService.excluirVeiculo(id);
+//            return ResponseEntity.ok("Registro excluido com sucesso.");
+//        }
+//        catch (Exception e){
+//            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+//        }
+//    }
 
-    @DeleteMapping ("delete/{id}")
-    public void deletaVeiculo(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletaVeiculo(@PathVariable("id") final Long id){
         Optional<Veículo> veiculoOptional = veiculoRep.findById(id);
-        if (veiculoOptional.isPresent()) {
-            Veículo veiculo = veiculoOptional.get();
-            if (!veiculo.isAtivo()) {
-                veiculoRep.delete(veiculo);
-            } else {
-                veiculo.setAtivo(false);
-                veiculoRep.save(veiculo);
+        try {
+            if (veiculoOptional.isPresent()){
+                Veículo veiculo = veiculoOptional.get();
+                if (!veiculo.isAtivo()){
+                    this.veiculoService.excluirVeiculo(id);
+                    return ResponseEntity.ok("Registro excluido com sucesso.");
+                } else {
+                    veiculo.setAtivo(false);
+                    veiculoRep.save(veiculo);
+                    return  ResponseEntity.ok("Desativado");
+                }
             }
         }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+        }
+        return ResponseEntity.internalServerError().body("Algo deu errado");
     }
 
-        }
+}
 
 
 

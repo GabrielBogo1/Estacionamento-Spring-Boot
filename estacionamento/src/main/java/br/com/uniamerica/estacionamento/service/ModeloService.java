@@ -25,5 +25,29 @@ public class ModeloService {
 
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void editarModelo(final Long id, final Modelo modelo) {
+
+        final Modelo modeloBanco = this.modeloRepository.findById(id).orElse(null);
+
+        if (modeloBanco == null || !modeloBanco.getId().equals(modelo.getId())){
+            throw new RuntimeException("Não foi possivel identificar o registro informado.");
+        }
+
+        this.modeloRepository.save(modelo);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void excluirModelo (final Long id) {
+
+        final Modelo modeloBanco = this.modeloRepository.findById(id).orElse(null);
+
+        if (modeloBanco == null || !modeloBanco.getId().equals(id)){
+            throw new RuntimeException("Não foi possivel identificar o registro informado.");
+        }
+
+        this.modeloRepository.delete(modeloBanco);
+    }
 }
+
 

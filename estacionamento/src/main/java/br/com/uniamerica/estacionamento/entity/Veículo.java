@@ -16,7 +16,7 @@ public class Veículo extends AbstractEntity {
     @Pattern(regexp = "^[A-Za-z0-9]+[A-Za-z0-9]*$", message = "Placa não pode conter caracteres especiais")
     private String placa;
     @Getter @Setter
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne (fetch = FetchType.EAGER)
     private Modelo modelo;
     @Getter @Setter
     @Column (name = "ano" , nullable = false)

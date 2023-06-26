@@ -17,6 +17,4 @@ public class Marca extends AbstractEntity {
     @Column (name = "nome_marca" , unique = true, length = 50, nullable = false)
     @Size(min = 1, max = 50, message = "Nome da marca não pode ser nulo")
     private String nome;
-
-
 }

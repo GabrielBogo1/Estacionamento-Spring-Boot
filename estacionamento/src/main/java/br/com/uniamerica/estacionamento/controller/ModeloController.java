@@ -50,8 +50,8 @@ public class ModeloController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity<?> editar(@RequestParam("id") final Long id, @Valid @RequestBody final Modelo modelo) {
+    @PutMapping ({"/{id}"})
+    public ResponseEntity<?> editar(@PathVariable("id") final Long id, @Valid @RequestBody final Modelo modelo) {
         try {
             modeloService.validaModelo(modelo);
 
@@ -69,19 +69,31 @@ public class ModeloController {
         }
     }
 
-    @DeleteMapping ("delete/{id}")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(
+            @PathVariable("id") final Long id
+    ){
+        try {
+            this.modeloService.excluirModelo(id);
+            return ResponseEntity.ok("Registro excluido com sucesso.");
+        }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+        }
+    }
 
-    public void deletaModelo(@PathVariable Long id) {
-        Optional<Modelo> modeloOptional = modeloRep.findById(id);
-        if (modeloOptional.isPresent()) {
-            Modelo modelo = modeloOptional.get();
-            if (!modelo.isAtivo()) {
-                modeloRep.delete(modelo);
-            } else {
-                modelo.setAtivo(false);
-                modeloRep.save(modelo);
-            }
-        }
-        }
+//    @DeleteMapping ("/{id}")
+//    public void deletaModelo(@PathVariable ("id") final Long id) {
+//        Optional<Modelo> modeloOptional = modeloRep.findById(id);
+//        if (modeloOptional.isPresent()) {
+//            Modelo modelo = modeloOptional.get();
+//            if (!modelo.isAtivo()) {
+//                modeloRep.delete(modelo);
+//            } else {
+//                modelo.setAtivo(false);
+//                modeloRep.save(modelo);
+//            }
+//        }
+//        }
     }
 

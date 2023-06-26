@@ -5,13 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="01d102ec-5be1-45ba-9851-c27b0a782759" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/CorsFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/EstacionamentoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/EstacionamentoApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/CondutorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/CondutorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/MarcaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/MarcaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/ModeloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/ModeloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/VeiculoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/controller/VeiculoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/entity/Condutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/entity/Condutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/entity/Marca.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/entity/Marca.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/entity/Modelo.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/entity/Modelo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/entity/Veículo.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/entity/Veículo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/service/CondutorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/service/CondutorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/service/MarcaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/service/MarcaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/service/ModeloService.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/service/ModeloService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/service/VeiculoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/service/VeiculoService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,5 +119,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/estacionamento/src/main/java/br/com/uniamerica/estacionamento/entity/Cor.java</url>
+          <line>4</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

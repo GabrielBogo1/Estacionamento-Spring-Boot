@@ -16,76 +16,108 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/api/marca")
-public class
-MarcaController {
+public class MarcaController {
 
-    @Autowired // Permite a utilização dos metodos de determinada classe, sem precisar instanciala, fazendo a injeçaõ de dependência
+    @Autowired
     private MarcaRepository marcaRepository;
 
     @Autowired
     private MarcaService marcaService;
+
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
-        public ResponseEntity<Marca> findByIDPath (@PathVariable("id") final Long id) {
-            final Marca marca = this.marcaRepository.findById(id).orElse(null);
-            return ResponseEntity.ok(marca);
+    public ResponseEntity<?> findByIdPath(@PathVariable("id") final Long id){
+        final Marca marca = this.marcaRepository.findById(id).orElse(null);
+        return marca == null
+                ? ResponseEntity.badRequest().body("Nenhum condutor encontrado para o ID = " + id + ".")
+                : ResponseEntity.ok(marca);
+    }
+
+    /**
+     *
+     * @return
+     */
+    @GetMapping("/lista")
+    public ResponseEntity<?> listaCompleta(){
+        return ResponseEntity.ok(this.marcaRepository.findAll());
+    }
+
+    /**
+     *
+     * @return
+     */
+//    @GetMapping("/lista/ativo")
+//    public ResponseEntity<?> listaCompletaAtivo(){
+//        return ResponseEntity.ok(this.marcaRepository.findByAtivoTrue());
+//    }
+
+    /**
+     *
+     * @param marca
+     * @return
+     */
+    @PostMapping
+    public ResponseEntity<?> cadastrar(@RequestBody final Marca marca){
+        try {
+            this.marcaService.validaMarca(marca);
+            return ResponseEntity.ok("Registro cadastrado com sucesso.");
         }
-
-        // http://localhost:8080/api/marca/1
-
-        // http://localhost:8080/api/marca?id=1
-
-
-        @GetMapping("/lista")
-        public ResponseEntity<?> ListaCompleta() {
-            return ResponseEntity.ok(this.marcaRepository.findAll());
-
+        catch (DataIntegrityViolationException e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getCause().getCause().getMessage());
         }
-
-        @PostMapping
-        public ResponseEntity<?> cadastrar (@Valid @RequestBody final Marca marca) {
-            try {
-                marcaService.validaMarca(marca);
-                return ResponseEntity.ok("Marca cadastrada com sucesso");
-            } catch (Exception e) {
-                return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
-            }
-        }
-
-        @PutMapping
-        public ResponseEntity<?> editar(@RequestParam("id") final Long id, @Valid @RequestBody final Marca marca) {
-            try {
-                marcaService.validaMarca(marca);
-
-                final Marca marca1 = this.marcaRepository.findById(id).orElse(null);
-                if (marca1 == null || !marca1.getId().equals(marca.getId())) {
-                    throw new RuntimeException("Nao foi possivel indentificar o registro informado");
-                }
-                this.marcaRepository.save(marca);
-                return ResponseEntity.ok("Marca atualiza com sucesso");
-            } catch (DataIntegrityViolationException e) {
-                return ResponseEntity.internalServerError()
-                        .body("Error: " + e.getMessage());
-            } catch (RuntimeException e) {
-                return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
-            }
-        }
-
-    @DeleteMapping ("delete/{id}")
-
-    public void deletaMarca(@PathVariable Long id) {
-        Optional<Marca> marcaOptional = marcaRepository.findById(id);
-        if (marcaOptional.isPresent()) {
-            Marca marca = marcaOptional.get();
-            if (!marca.isAtivo()) {
-                marcaRepository.delete(marca);
-            } else {
-                marca.setAtivo(false);
-                marcaRepository.save(marca);
-            }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
     }
 
+    /**
+     *
+     * @param id
+     * @param marca
+     * @return
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<?> editar(@PathVariable("id") final Long id, @RequestBody final Marca marca){
+        try {
+            this.marcaService.editarMarca(id, marca);
+            return ResponseEntity.ok("Registro atualizado com sucesso. ");
+        }
+        catch (DataIntegrityViolationException e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getCause().getCause().getMessage());
+        }
+        catch (RuntimeException e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+        }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+        }
     }
+
+    /**
+     *
+     * @param id            this.marcaRepository.delete(marca);
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(
+            @PathVariable("id") final Long id
+    ){
+        try {
+            this.marcaService.deletarMarca(id);
+            return ResponseEntity.ok("Registro excluido com sucesso.");
+        }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+        }
+    }
+}
+
+
+
 
 
 

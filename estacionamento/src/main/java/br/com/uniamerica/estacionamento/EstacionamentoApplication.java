@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @SpringBootApplication
-@CrossOrigin (value = "http://localhost:8081/condutor", allowedHeaders = "*")
-@ServletComponentScan
+//@CrossOrigin (value = "http://localhost:8081/api/marca", allowedHeaders = "*")
+//@ServletComponentScan
 public class EstacionamentoApplication {
 
 	public static void main(String[] args) {

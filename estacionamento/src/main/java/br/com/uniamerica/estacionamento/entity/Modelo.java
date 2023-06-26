@@ -15,8 +15,21 @@ public class Modelo extends  AbstractEntity {
     @Size(min = 1, message = "Nome do modelo não pode ser nulo")
     private String nome;
     @Getter @Setter
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name = "marca_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinTable(name = "modelo_marca",
+            uniqueConstraints = @UniqueConstraint(
+                    columnNames = {
+                            "modelo_id",
+                            "marca_id"
+                    }
+            ),
+            joinColumns = @JoinColumn(
+                    name = "modelo_id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "marca_id"
+            )
+    )
     private Marca marca;
 
 }
